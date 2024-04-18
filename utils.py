@@ -111,12 +111,12 @@ def get_error_module(center_mat, code_result, module_number, threshold_b, thresh
     return error_module
 
 
-def get_target(binary_result, b_robust, w_robust, module_num=37, module_size=16):
-    img_size = module_size * module_num
+def get_target(binary_result, b_robust, w_robust, module_number=37, module_size=16):
+    img_size = module_size * module_number
     target = np.require(np.ones((img_size, img_size)), dtype='uint8', requirements=['O', 'W'])
 
-    for i in range(module_num):
-        for j in range(module_num):
+    for i in range(module_number):
+        for j in range(module_number):
             # print(str(i) + ' == ' + str(j))
             one_binary_result = binary_result[i, j]
             if one_binary_result == 0:
