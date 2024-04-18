@@ -149,10 +149,11 @@ def get_3DGauss(module_size, s=0, e=15, sigma=1.5, mu=7.5):
     x, y = np.mgrid[s:e:module_size * 1j, s:e:module_size * 1j]
     z = (1 / (2 * math.pi * sigma ** 2)) * np.exp(-((x - mu) ** 2 + (y - mu) ** 2) / (2 * sigma ** 2))
     z = torch.from_numpy(MaxMinNormalization(z.astype(np.float32)))
-    for j in range(module_size):
-        for i in range(module_size):
-            if z[i, j] < 0.1:
-                z[i, j] = 0
+    # for j in range(module_size):
+    #     for i in range(module_size):
+    #         if z[i, j] < 0.1:
+    #             z[i, j] = 0
+    z[z < 0.1] = 0
     return z
 
 
