@@ -55,6 +55,7 @@ def artcoder(STYLE_IMG_PATH, CONTENT_IMG_PATH, CODE_PATH, OUTPUT_DIR,
         img_target=utils.tensor_to_PIL(y),
         img_code=code_img,
         module_number=MODULE_NUM,
+        module_size=MODULE_SIZE,
         Dis_b=Dis_b, 
         Dis_w=Dis_w
     )
@@ -86,6 +87,7 @@ def artcoder(STYLE_IMG_PATH, CONTENT_IMG_PATH, CODE_PATH, OUTPUT_DIR,
                     img_target=utils.tensor_to_PIL(y),
                     img_code=code_img,
                     module_number=MODULE_NUM,
+                    module_size=MODULE_SIZE,
                     Dis_b=Dis_b, 
                     Dis_w=Dis_w)
                 activate_num = np.sum(error_matrix)
