@@ -111,7 +111,7 @@ def artcoder(STYLE_IMG_PATH, CONTENT_IMG_PATH, CODE_PATH, OUTPUT_DIR,
                 img_name = 'epoch=' + str(epoch) + '__Wstyle=' + str("%.1e" % STYLE_WEIGHT) + '__Wcode=' + str(
                     "%.1e" % CODE_WEIGHT) + '__Wcontent' + str(
                     "%.1e" % CONTENT_WEIGHT) + '.jpg'
-                utils.save_image_epoch(y, OUTPUT_DIR, img_name, code_img, addpattern=True)
+                utils.save_image_epoch(y, OUTPUT_DIR, img_name, code_img, MODULE_NUM, MODULE_SIZE, addpattern=True)
                 print('Save output: ' + img_name)
                 return total_loss
 

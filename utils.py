@@ -126,13 +126,13 @@ def get_target(binary_result, b_robust, w_robust, module_num=37, module_size=16)
     return target
 
 
-def save_image_epoch(tensor, path, name, code_pil, addpattern=True):
+def save_image_epoch(tensor, path, name, code_pil, module_number, module_size, addpattern=True):
     """Save a single image."""
     image = tensor.cpu().clone()
     image = image.squeeze(0)
     image = unloader(image)
     if addpattern == True:
-        image = add_pattern(image, code_pil, module_number=37, module_size=16)
+        image = add_pattern(image, code_pil, module_number, module_size)
     image.save(os.path.join(path, "epoch_" + str(name)))
 
 
