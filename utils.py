@@ -93,12 +93,22 @@ def get_binary_result(img_code, module_size, module_number=37):
 
 
 def get_center_pixel(img_target, module_number, module_size):
-    center_mat = np.zeros((module_number, module_number))
-    for j in range(module_number):
-        for i in range(module_number):
-            module = img_target[i * module_size:(i + 1) * module_size, j * module_size:(j + 1) * module_size]
-            module_color = np.mean(module[5:12, 5:12])
-            center_mat[i, j] = module_color
+    # center_mat = np.zeros((module_number, module_number))
+    # for j in range(module_number):
+    #     for i in range(module_number):
+    #         module = img_target[i * module_size:(i + 1) * module_size, j * module_size:(j + 1) * module_size]
+    #         module_color = np.mean(module[5:12, 5:12])
+    #         center_mat[i, j] = module_color
+    kernel = np.zeros((module_size, module_size))
+    kernel[5:12, 5:12] = 1/49
+    kernel = np.tile(kernel, (module_number, module_number))
+
+    central_region = np.multiply(img_target, kernel)
+    central_region = central_region.reshape(module_number, module_size, module_number, module_size)
+    modules = central_region.swapaxes(1, 2).reshape(-1, module_size, module_size)
+    
+    center_mat = np.sum(modules, axis=(-1, -2)).reshape(module_number, module_number)
+
     return center_mat
 
 
