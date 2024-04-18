@@ -60,7 +60,11 @@ def artcoder(STYLE_IMG_PATH, CONTENT_IMG_PATH, CODE_PATH, OUTPUT_DIR,
         Dis_b=Dis_b, 
         Dis_w=Dis_w
     )
-    code_target = ss_layer(utils.get_target(ideal_result, b_robust=Correct_b, w_robust=Correct_w))
+    code_target = ss_layer(utils.get_target(ideal_result, 
+                                            b_robust=Correct_b, 
+                                            w_robust=Correct_w,
+                                            module_num=MODULE_NUM,
+                                            module_size=MODULE_SIZE))
 
     print(" Start training =============================================")
     for epoch in range(EPOCHS):
