@@ -102,7 +102,10 @@ def get_center_pixel(img_target, module_number, module_size):
     #         module_color = np.mean(module[5:12, 5:12])
     #         center_mat[i, j] = module_color
     kernel = np.zeros((module_size, module_size))
-    kernel[5:12, 5:12] = 1/49
+    # kernel[5:12, 5:12] = 1/49
+    left = module_size // 3
+    right = module_size - module_size // 3 + 1
+    kernel[left:right, left:right] = 1 / (right - left) ** 2
     kernel = np.tile(kernel, (module_number, module_number))
 
     central_region = np.multiply(img_target, kernel)
