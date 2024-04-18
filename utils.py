@@ -63,7 +63,7 @@ def get_action_matrix(img_target, img_code, module_number, module_size=16, IMG_S
     img_code = np.require(np.asarray(img_code.convert('L')), dtype='uint8', requirements=['O', 'W'])
     img_target = np.require(np.array(img_target.convert('L')), dtype='uint8', requirements=['O', 'W'])
 
-    ideal_result = get_binary_result(img_code, module_size)
+    ideal_result = get_binary_result(img_code, module_size, module_number)
     center_mat = get_center_pixel(img_target, module_number, module_size)
     error_module = get_error_module(center_mat, 
                                     code_result=ideal_result,
