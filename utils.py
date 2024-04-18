@@ -59,13 +59,15 @@ def gram_matrix(y):
     return gram
 
 
-def get_action_matrix(img_target, img_code, module_size=16, IMG_SIZE=592, Dis_b=50, Dis_w=200):
+def get_action_matrix(img_target, img_code, module_number, module_size=16, IMG_SIZE=592, Dis_b=50, Dis_w=200):
     img_code = np.require(np.asarray(img_code.convert('L')), dtype='uint8', requirements=['O', 'W'])
     img_target = np.require(np.array(img_target.convert('L')), dtype='uint8', requirements=['O', 'W'])
 
     ideal_result = get_binary_result(img_code, module_size)
     center_mat = get_center_pixel(img_target, module_size)
-    error_module = get_error_module(center_mat, code_result=ideal_result,
+    error_module = get_error_module(center_mat, 
+                                    code_result=ideal_result,
+                                    module_number=module_number,
                                     threshold_b=Dis_b,
                                     threshold_w=Dis_w)
     return error_module, ideal_result
@@ -94,10 +96,10 @@ def get_center_pixel(img_target, module_size):
     return center_mat
 
 
-def get_error_module(center_mat, code_result, threshold_b, threshold_w):
-    error_module = np.ones((37, 37))  # 0 means correct,1 means error
-    for j in range(37):
-        for i in range(37):
+def get_error_module(center_mat, code_result, module_number, threshold_b, threshold_w):
+    error_module = np.ones((module_number, module_number))  # 0 means correct,1 means error
+    for j in range(module_number):
+        for i in range(module_number):
             center_pixel = center_mat[i, j]
             right_result = code_result[i, j]
             if right_result == 0 and center_pixel < threshold_b:

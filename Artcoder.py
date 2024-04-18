@@ -54,7 +54,9 @@ def artcoder(STYLE_IMG_PATH, CONTENT_IMG_PATH, CODE_PATH, OUTPUT_DIR,
     error_matrix, ideal_result = utils.get_action_matrix(
         img_target=utils.tensor_to_PIL(y),
         img_code=code_img,
-        Dis_b=Dis_b, Dis_w=Dis_w
+        module_number=MODULE_NUM,
+        Dis_b=Dis_b, 
+        Dis_w=Dis_w
     )
     code_target = ss_layer(utils.get_target(ideal_result, b_robust=Correct_b, w_robust=Correct_w))
 
@@ -83,7 +85,9 @@ def artcoder(STYLE_IMG_PATH, CONTENT_IMG_PATH, CODE_PATH, OUTPUT_DIR,
                 error_matrix, ideal_result = utils.get_action_matrix(
                     img_target=utils.tensor_to_PIL(y),
                     img_code=code_img,
-                    Dis_b=Dis_b, Dis_w=Dis_w)
+                    module_number=MODULE_NUM,
+                    Dis_b=Dis_b, 
+                    Dis_w=Dis_w)
                 activate_num = np.sum(error_matrix)
                 activate_weight = torch.tensor(error_matrix.astype('float32'))
                 code_y = code_y.cpu() * activate_weight
