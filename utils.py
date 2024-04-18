@@ -115,14 +115,19 @@ def get_target(binary_result, b_robust, w_robust, module_number=37, module_size=
     img_size = module_size * module_number
     target = np.require(np.ones((img_size, img_size)), dtype='uint8', requirements=['O', 'W'])
 
-    for i in range(module_number):
-        for j in range(module_number):
-            # print(str(i) + ' == ' + str(j))
-            one_binary_result = binary_result[i, j]
-            if one_binary_result == 0:
-                target[i * module_size:(i + 1) * module_size, j * module_size:(j + 1) * module_size] = b_robust
-            else:
-                target[i * module_size:(i + 1) * module_size, j * module_size:(j + 1) * module_size] = w_robust
+    # for i in range(module_number):
+    #     for j in range(module_number):
+    #         # print(str(i) + ' == ' + str(j))
+    #         one_binary_result = binary_result[i, j]
+    #         if one_binary_result == 0:
+    #             target[i * module_size:(i + 1) * module_size, j * module_size:(j + 1) * module_size] = b_robust
+    #         else:
+    #             target[i * module_size:(i + 1) * module_size, j * module_size:(j + 1) * module_size] = w_robust
+    mask_b = binary_result == 0   
+    mask_w = binary_result == 1 
+
+    target[mask_b.repeat(module_size, axis=0).repeat(module_size, axis=1)] = b_robust
+    target[mask_w.repeat(module_size, axis=0).repeat(module_size, axis=1)] = w_robust
 
     target = load(Image.fromarray(target.astype('uint8')).convert('RGB')).unsqueeze(0).cuda()
     return target
