@@ -64,7 +64,7 @@ def get_action_matrix(img_target, img_code, module_number, module_size=16, IMG_S
     img_target = np.require(np.array(img_target.convert('L')), dtype='uint8', requirements=['O', 'W'])
 
     ideal_result = get_binary_result(img_code, module_size)
-    center_mat = get_center_pixel(img_target, module_size)
+    center_mat = get_center_pixel(img_target, module_number, module_size)
     error_module = get_error_module(center_mat, 
                                     code_result=ideal_result,
                                     module_number=module_number,
@@ -86,10 +86,10 @@ def get_binary_result(img_code, module_size, module_number=37):
     return binary_result
 
 
-def get_center_pixel(img_target, module_size):
-    center_mat = np.zeros((37, 37))
-    for j in range(37):
-        for i in range(37):
+def get_center_pixel(img_target, module_number, module_size):
+    center_mat = np.zeros((module_number, module_number))
+    for j in range(module_number):
+        for i in range(module_number):
             module = img_target[i * module_size:(i + 1) * module_size, j * module_size:(j + 1) * module_size]
             module_color = np.mean(module[5:12, 5:12])
             center_mat[i, j] = module_color
