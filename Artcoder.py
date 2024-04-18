@@ -63,7 +63,7 @@ def artcoder(STYLE_IMG_PATH, CONTENT_IMG_PATH, CODE_PATH, OUTPUT_DIR,
     code_target = ss_layer(utils.get_target(ideal_result, 
                                             b_robust=Correct_b, 
                                             w_robust=Correct_w,
-                                            module_num=MODULE_NUM,
+                                            module_number=MODULE_NUM,
                                             module_size=MODULE_SIZE))
 
     print(" Start training =============================================")
