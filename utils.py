@@ -33,8 +33,10 @@ def add_pattern(target_PIL, code_PIL, module_number=37, module_size=16):
                                                                     :]
     output[0 * ms: (8 * ms) - 1, ((mn - 8) * ms) + 1:(mn * ms), :] = code_img[0 * ms: (8 * ms) - 1,
                                                                      ((mn - 8) * ms) + 1:(mn * ms), :]
-    output[28 * ms: (33 * ms) - 1, 28 * ms:(33 * ms) - 1, :] = code_img[28 * ms: (33 * ms) - 1, 28 * ms:(33 * ms) - 1,
-                                                               :]
+    # output[28 * ms: (33 * ms) - 1, 28 * ms:(33 * ms) - 1, :] = code_img[28 * ms: (33 * ms) - 1, 28 * ms:(33 * ms) - 1,
+    #                                                            :]
+    output[(mn - 9) * ms: ((mn - 4) * ms) - 1, (mn - 9) * ms:((mn - 4) * ms) - 1, :] = \
+        code_img[(mn - 9) * ms: ((mn - 4) * ms) - 1, (mn - 9) * ms:((mn - 4) * ms) - 1, :]
 
     output = Image.fromarray(output.astype('uint8'))
     print('Added finder and alignment patterns.')
