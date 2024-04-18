@@ -74,15 +74,21 @@ def get_action_matrix(img_target, img_code, module_number, module_size=16, IMG_S
 
 
 def get_binary_result(img_code, module_size, module_number=37):
-    binary_result = np.zeros((module_number, module_number))
-    for j in range(module_number):
-        for i in range(module_number):
-            module = img_code[i * module_size:(i + 1) * module_size, j * module_size:(j + 1) * module_size]
-            module_color = np.around(np.mean(module), decimals=2)
-            if module_color < 128:
-                binary_result[i, j] = 0
-            else:
-                binary_result[i, j] = 1
+    # binary_result = np.zeros((module_number, module_number))
+    # for j in range(module_number):
+    #     for i in range(module_number):
+    #         module = img_code[i * module_size:(i + 1) * module_size, j * module_size:(j + 1) * module_size]
+    #         module_color = np.around(np.mean(module), decimals=2)
+    #         if module_color < 128:
+    #             binary_result[i, j] = 0
+    #         else:
+    #             binary_result[i, j] = 1
+    img_code = img_code.reshape(module_number, module_size, module_number, module_size)
+    modules = img_code.swapaxes(1, 2).reshape(-1, module_size, module_size)
+    module_colors = np.around(np.mean(modules, axis=(-1, -2)), decimals=2).reshape(module_number,module_number)
+
+    binary_result = (module_colors >= 128)
+    
     return binary_result
 
 
