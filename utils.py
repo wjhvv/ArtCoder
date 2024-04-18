@@ -98,16 +98,20 @@ def get_center_pixel(img_target, module_number, module_size):
 
 def get_error_module(center_mat, code_result, module_number, threshold_b, threshold_w):
     error_module = np.ones((module_number, module_number))  # 0 means correct,1 means error
-    for j in range(module_number):
-        for i in range(module_number):
-            center_pixel = center_mat[i, j]
-            right_result = code_result[i, j]
-            if right_result == 0 and center_pixel < threshold_b:
-                error_module[i, j] = 0
-            elif right_result == 1 and center_pixel > threshold_w:
-                error_module[i, j] = 0
-            else:
-                error_module[i, j] = 1
+    # for j in range(module_number):
+    #     for i in range(module_number):
+    #         center_pixel = center_mat[i, j]
+    #         right_result = code_result[i, j]
+    #         if right_result == 0 and center_pixel < threshold_b:
+    #             error_module[i, j] = 0
+    #         elif right_result == 1 and center_pixel > threshold_w:
+    #             error_module[i, j] = 0
+    #         else:
+    #             error_module[i, j] = 1
+    mask_b = (code_result == 0) & (center_mat < threshold_b)
+    mask_w = (code_result == 1) & (center_mat > threshold_w)
+    error_module[mask_b | mask_w] = 0
+    
     return error_module
 
 
