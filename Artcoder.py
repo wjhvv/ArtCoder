@@ -29,7 +29,7 @@ def artcoder(STYLE_IMG_PATH, CONTENT_IMG_PATH, CODE_PATH, OUTPUT_DIR,
     style_img = utils.load_image(filename=STYLE_IMG_PATH, size=IMAGE_SIZE)
     content_img = utils.load_image(filename=CONTENT_IMG_PATH, size=IMAGE_SIZE)
     code_img = utils.load_image(filename=CODE_PATH, size=IMAGE_SIZE)
-    init_img = utils.add_pattern(content_img, code_img)
+    init_img = utils.add_pattern(content_img, code_img, MODULE_NUM, MODULE_SIZE)
 
 
     style_img = transform(style_img)
