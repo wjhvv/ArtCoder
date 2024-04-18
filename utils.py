@@ -143,8 +143,8 @@ def tensor_to_PIL(tensor):
     return image
 
 
-def get_3DGauss(s=0, e=15, sigma=1.5, mu=7.5):
-    x, y = np.mgrid[s:e:16j, s:e:16j]
+def get_3DGauss(module_size, s=0, e=15, sigma=1.5, mu=7.5):
+    x, y = np.mgrid[s:e:module_size * 1j, s:e:module_size * 1j]
     z = (1 / (2 * math.pi * sigma ** 2)) * np.exp(-((x - mu) ** 2 + (y - mu) ** 2) / (2 * sigma ** 2))
     z = torch.from_numpy(MaxMinNormalization(z.astype(np.float32)))
     for j in range(16):

@@ -24,7 +24,7 @@ def artcoder(STYLE_IMG_PATH, CONTENT_IMG_PATH, CODE_PATH, OUTPUT_DIR,
     ])
 
     vgg = Vgg16(requires_grad=False).cuda()  # vgg16 model
-    ss_layer = SSlayer(requires_grad=False).cuda()
+    ss_layer = SSlayer(module_size=MODULE_SIZE, requires_grad=False).cuda()
 
     style_img = utils.load_image(filename=STYLE_IMG_PATH, size=IMAGE_SIZE)
     content_img = utils.load_image(filename=CONTENT_IMG_PATH, size=IMAGE_SIZE)
